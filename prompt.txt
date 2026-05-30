@@ -1,0 +1,257 @@
+Hãy code một website thư mời lễ tốt nghiệp bằng ReactJS, ưu tiên mobile-first, responsive chuẩn cho điện thoại. Giao diện lấy cảm hứng từ ảnh thư mời mẫu: dễ thương, nhẹ nhàng, thanh lịch, tông xanh pastel – trắng – xanh dương.
+
+Tech stack:
+- ReactJS + Vite
+- Tailwind CSS
+- Framer Motion cho animation
+- React Router
+- Supabase: Auth, Database, Storage
+- React Hook Form + Zod
+- Google Fonts
+- Có thể dùng lucide-react cho icon
+- Có thể dùng react-day-picker hoặc custom calendar
+- Có thể dùng leaflet hoặc Google Maps iframe để ghim địa điểm
+
+Bảng màu gợi ý:
+- Pastel blue background: #C7E4F4
+- Light sky blue: #DDF2FF
+- White: #FFFFFF
+- Deep royal blue: #1D5FD1
+- Soft navy text: #162033
+- Elegant black: #111111
+- Pale border: #F7FBFF
+- Accent blue: #2F80ED
+
+Font gợi ý:
+- Title serif lớn: “Playfair Display” hoặc “Cormorant Garamond”
+- Chữ viết tay / lời mời: “Dancing Script”, “Great Vibes”, “Allura”
+- Nội dung dễ đọc: “Inter”, “Be Vietnam Pro” hoặc “Nunito”
+- Ngày tháng kiểu sang: “Cormorant Garamond” italic
+
+Thông tin demo:
+- Tên người tốt nghiệp: OANH
+- Tiêu đề: THƯ MỜI Graduation
+- Sự kiện: Lễ tốt nghiệp của OANH
+- Thời gian: 16:00 - Chủ Nhật, 07.06.2026
+- Địa điểm: Sân trường Đại học Mở TP.HCM - Số 97 Võ Văn Tần, Phường Xuân Hòa
+- SĐT: 0773.795.669 - 0936.365.469
+
+Yêu cầu tổng thể:
+Thiết kế website như một mini landing page thư mời tốt nghiệp, có cảm giác như mở một tấm thiệp online. Giao diện phải đẹp, mềm mại, nhiều khoảng trắng, bo góc lớn, có shadow nhẹ, hiệu ứng fade/slide/parallax tinh tế. Ưu tiên trải nghiệm trên mobile, desktop vẫn đẹp nhưng không cần quá phức tạp.
+
+Cấu trúc route:
+1. /login
+2. /
+3. /album
+4. /admin hoặc /album/manage cho chủ sở hữu quản lý ảnh
+
+Menu:
+- Thư mời
+- Lịch & địa điểm
+- Xác nhận tham dự
+- Gửi lời chúc
+- Album tốt nghiệp
+
+Trang chính “/” gồm các section:
+
+1. Hero Invitation Card
+- Layout giống ảnh mẫu.
+- Nền xanh pastel.
+- Có khung nét đứt trắng bo góc.
+- Text nhỏ trên đầu: GRADUATION 2026.
+- Title lớn: “THƯ MỜI”.
+- Dòng script: “Graduation”.
+- Badge: “Lễ tốt nghiệp của OANH”.
+- Bên phải hoặc phía dưới trên mobile có ảnh người tốt nghiệp, dùng ảnh placeholder có thể thay đổi.
+- Hiệu ứng khi vào trang: card fade in, title scale nhẹ, feather/icon bay nhẹ.
+
+2. Lời mời
+Nội dung:
+“Thương mời những người thương yêu đã động viên, chứng kiến, đồng hành và dẫn dắt mình trong suốt hành trình Đại học.
+Cùng đến tham dự Lễ Tốt nghiệp và lưu giữ những khoảnh khắc đáng nhớ.”
+
+Dùng font script cho đoạn đầu, font serif/italic cho đoạn nhấn mạnh.
+
+3. Calendar Section
+- Hiển thị một giao diện cuốn lịch nhỏ.
+- Tháng 06/2026.
+- Khoanh tròn ngày 07.
+- Bên dưới hiển thị:
+“16:00 - Chủ Nhật”
+“07.06.2026”
+- Có animation lật lịch hoặc fade up.
+
+4. Maps Section
+- Card bản đồ có ghim địa điểm.
+- Dùng Google Maps iframe hoặc leaflet.
+- Địa chỉ:
+“Sân trường Đại học Mở TP.HCM - Số 97 Võ Văn Tần, Phường Xuân Hòa”
+- Có nút “Mở Google Maps”.
+
+5. RSVP Form
+Form xác nhận tham dự, không cần login:
+Fields:
+- Họ và tên
+- Số điện thoại
+- Bạn sẽ tham dự chứ?
+  - Có, mình sẽ đến
+  - Có thể
+  - Tiếc quá, mình không đến được
+- Số người đi cùng
+- Ghi chú / lời nhắn ngắn
+
+Khi submit:
+- Validate bằng Zod.
+- Lưu vào bảng Supabase `rsvps`.
+- Hiển thị toast thành công.
+- Có loading state.
+
+Schema Supabase:
+Table `rsvps`:
+- id uuid primary key default gen_random_uuid()
+- name text not null
+- phone text
+- attendance_status text not null
+- guest_count int default 0
+- note text
+- created_at timestamp default now()
+
+6. Wishes Form
+Form gửi lời chúc:
+Fields:
+- Tên người gửi
+- Lời chúc
+- Chọn icon cảm xúc: 🎓 💙 ✨ 🥹 🌸 🎉
+Submit xong lưu vào bảng `wishes`.
+
+Table `wishes`:
+- id uuid primary key default gen_random_uuid()
+- sender_name text not null
+- message text not null
+- emoji text
+- created_at timestamp default now()
+
+Hiển thị một số lời chúc mới nhất bên dưới dưới dạng card nhỏ xinh, có animation.
+
+7. Thank You Section
+- Text:
+“Cảm ơn bạn vì đã là một phần trong hành trình thanh xuân và ngày đặc biệt này.”
+- Có hiệu ứng confetti nhẹ hoặc floating hearts/stars.
+- Nút quay lên đầu trang.
+
+Trang `/album`:
+Mục đích: album ảnh lễ tốt nghiệp giống ứng dụng locket dễ thương.
+
+Chức năng:
+- Người xem có thể xem album không cần login.
+- Chỉ tài khoản chủ sở hữu mới được thêm/sửa/xóa ảnh.
+- Layout album có các chế độ:
+  1. Grid layout
+  2. Masonry / Pinterest layout
+  3. Carousel xoay vòng
+  4. Flow layout mềm mại
+- Có nút đổi layout nếu user là admin.
+- Có filter theo tag: “Bạn bè”, “Gia đình”, “Sân trường”, “Khoảnh khắc vui”, “Ảnh yêu thích”.
+
+Table `album_photos`:
+- id uuid primary key default gen_random_uuid()
+- image_url text not null
+- caption text
+- tag text
+- frame_type text
+- sticker_data jsonb
+- layout_order int
+- created_at timestamp default now()
+
+Supabase Storage:
+- Bucket: `graduation-album`
+- Upload ảnh vào bucket này.
+- Lưu public URL vào `album_photos.image_url`.
+
+Trang `/login`:
+- Chỉ có một tài khoản chủ sở hữu.
+- Login bằng Supabase Auth email/password.
+- UI đơn giản, dễ thương, cùng tone màu.
+- Sau khi login thành công chuyển về `/album/manage` hoặc hiện nút upload trong `/album`.
+
+Chức năng upload ảnh:
+- Cho phép chủ sở hữu upload ảnh từ máy.
+- Cho phép mở camera chụp ảnh nếu trình duyệt hỗ trợ.
+- Sau khi chọn/chụp ảnh, hiển thị màn preview.
+- Có thể thêm caption, tag.
+- Có thể chọn frame:
+  - Polaroid trắng
+  - Blue ribbon frame
+  - Graduation cap frame
+  - Heart pastel frame
+- Có thể thêm sticker/icon dễ thương:
+  🎓 💙 ✨ 🌸 🪽 📸 🥹 🎉
+- Sticker có thể kéo thả cơ bản nếu làm được, nếu không thì chọn sticker overlay cố định ở góc ảnh.
+- Upload ảnh đã chọn lên Supabase Storage.
+- Lưu metadata vào database.
+
+Animation:
+- Dùng Framer Motion.
+- Page transition fade.
+- Section reveal khi scroll.
+- Floating feather/star particles nhẹ.
+- Button hover scale.
+- Card hover lift.
+- Calendar date circle pulse nhẹ.
+- Album image hover zoom nhẹ.
+- Confetti khi RSVP thành công hoặc gửi lời chúc thành công.
+
+Component gợi ý:
+- AppLayout
+- MobileNavbar
+- InvitationHero
+- InvitationCard
+- CalendarCard
+- LocationMap
+- RSVPForm
+- WishesForm
+- WishCard
+- ThankYouSection
+- AlbumPage
+- AlbumGrid
+- AlbumCarousel
+- AlbumUploader
+- PhotoEditor
+- LoginPage
+- ProtectedRoute
+- supabaseClient
+- useAuth
+- useAlbumPhotos
+- useWishes
+
+Yêu cầu UI:
+- Mobile-first.
+- Header sticky, trong suốt nhẹ, blur backdrop.
+- Menu dạng bottom navigation trên điện thoại.
+- Desktop có navbar ngang.
+- Tất cả card bo góc 24px hoặc 32px.
+- Shadow nhẹ.
+- Nền có gradient xanh pastel.
+- Có decorative elements: feather, sparkle, graduation cap, ribbon.
+- Không dùng màu quá gắt.
+- Text tiếng Việt đầy đủ dấu.
+- Tối ưu touch target trên mobile.
+
+Yêu cầu code:
+- Viết code hoàn chỉnh, chạy được.
+- Tách component rõ ràng.
+- Có file `.env.example`:
+  VITE_SUPABASE_URL=
+  VITE_SUPABASE_ANON_KEY=
+  VITE_GOOGLE_MAPS_EMBED_URL=
+- Có hướng dẫn tạo bảng SQL Supabase.
+- Có hướng dẫn tạo bucket Supabase Storage.
+- Có RLS policy cơ bản:
+  - Ai cũng insert được RSVP và wishes.
+  - Ai cũng read được wishes và album_photos.
+  - Chỉ authenticated owner mới insert/update/delete album_photos.
+- Không hardcode Supabase key.
+- Có loading, empty state, error state.
+- Code sạch, dễ mở rộng.
+
+Hãy tạo đầy đủ source code cho project ReactJS + Tailwind + Framer Motion + Supabase theo mô tả trên.
