@@ -184,6 +184,7 @@ export default function AlbumPage() {
   useEffect(() => {
     const move = (e) => {
       if (!draggingId || !previewRef.current) return;
+      e.preventDefault();
       const rect = previewRef.current.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
       const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -191,9 +192,13 @@ export default function AlbumPage() {
       const ny = Math.max(5, Math.min(95, y));
       setStickers((prev) => prev.map((s) => (s.id === draggingId ? { ...s, x: nx, y: ny } : s)));
     };
-    const up = () => setDraggingId(null);
+    const up = () => {
+      setDraggingId(null);
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
 
-    window.addEventListener('pointermove', move);
+    window.addEventListener('pointermove', move, { passive: false });
     window.addEventListener('pointerup', up);
     return () => {
       window.removeEventListener('pointermove', move);
@@ -405,7 +410,7 @@ export default function AlbumPage() {
             <div className="mx-auto max-w-sm">
               <div
                 ref={previewRef}
-                className={`relative overflow-hidden rounded-xl ${activeFrame.cls}`}
+                className={`relative overflow-hidden rounded-xl touch-none select-none ${activeFrame.cls}`}
                 style={{ aspectRatio: activeFrame.value === 'Không khung' ? previewAspect : 3 / 4 }}
               >
                 <img
@@ -424,6 +429,8 @@ export default function AlbumPage() {
                   onPointerDown={(e, id) => {
                     e.preventDefault();
                     selectSticker(id);
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.touchAction = 'none';
                     setDraggingId(id);
                   }}
                 />
