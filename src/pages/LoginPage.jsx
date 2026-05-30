@@ -28,8 +28,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-[calc(100dvh-110px)] items-center">
-      <div className="mx-auto w-[calc(100%-20px)] max-w-sm rounded-[28px] border border-white/70 bg-[linear-gradient(180deg,#dff1ff,#cde8fb)] px-6 py-5 shadow-[0_16px_38px_rgba(29,95,209,0.18)] sm:w-full sm:p-7">
+    <div className="flex min-h-[100dvh] items-center">
+      <div className="mx-auto w-[calc(100%-20px)] max-w-sm rounded-[28px] border border-white/70 bg-[#cfe3f4] px-6 py-5 shadow-[0_16px_38px_rgba(29,95,209,0.18)] sm:w-full sm:p-7">
         <p className="text-center text-xs uppercase tracking-[0.25em] text-[#5f8fb5]">Owner Access</p>
         <h1 className="mt-1 text-center font-serif text-5xl text-[#1D5FD1]">Đăng Nhập</h1>
         <p className="mt-2 text-center text-sm text-[#2a4f73]">Quản lý album tốt nghiệp</p>
