@@ -6,7 +6,7 @@ import { supabase } from '../lib/supabaseClient';
 const OWNER_EMAIL_DOMAIN = '@gmail.com';
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('thuyoanh204');
+  const [username, setUsername] = useState('thuyoanh204@gmail.com');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
@@ -37,7 +37,7 @@ export default function LoginPage() {
         <label className="text-sm font-medium text-[#2a4f73]">Username</label>
         <input
           className="input"
-          placeholder="thuyoanh204"
+          placeholder="thuyoanh204@gmail.com"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -50,8 +50,6 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        <p className="text-xs text-[#5f8fb5]">Tài khoản mặc định: `thuyoanh204` (email: thuyoanh204@gmail.com)</p>
 
         <button className="invite-btn mt-1" disabled={loading}>
           {loading ? 'Đang đăng nhập...' : 'Đăng nhập quản trị'}

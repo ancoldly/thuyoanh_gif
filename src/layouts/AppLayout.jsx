@@ -1,6 +1,7 @@
 ﻿import { Link, NavLink, Outlet } from 'react-router-dom';
 import { GraduationCap, Images, ListChecks } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import brandIcon from '../assets/images/1.png';
 
 const OWNER_EMAIL = 'thuyoanh204@gmail.com';
 
@@ -20,7 +21,10 @@ export default function AppLayout() {
     <div className="min-h-screen pb-24 md:pb-0">
       <header className="sticky top-0 z-40 border-b border-white/70 bg-[#dff1ff]/90 backdrop-blur">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
-          <Link to="/" className="font-serif text-2xl font-semibold tracking-wide text-[#1D5FD1]">Thùy Oanh's Graduation</Link>
+          <Link to="/" className="flex items-center gap-2 text-[#1D5FD1]">
+            <img src={brandIcon} alt="Graduation" className="h-8 w-8 rounded-md object-cover" />
+            <span className="font-serif text-xl font-semibold tracking-wide">Thùy Oanh's Graduation</span>
+          </Link>
           <div className="flex items-center gap-4">
             <nav className="hidden gap-5 md:flex">
               {menu.map((item) => (
@@ -52,4 +56,3 @@ export default function AppLayout() {
     </div>
   );
 }
-
